@@ -1,0 +1,37 @@
+{
+  "name": "notes-web-app",
+  "version": "0.0.1",
+  "description": "A simple offline first web app to write little notes",
+  "main": "index.js",
+  "devDependencies": {
+    "autoprefixer-stylus": "^0.10.0",
+    "standard": "^8.0.0",
+    "stylint": "^1.5.6",
+    "stylus": "^0.54.5",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "esnext": true,
+    "space": 2,
+    "semicolon": false,
+    "globals": [
+      "document",
+      "window",
+      "localStorage"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:js": "xo src/js/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiamsantos/ud989-retain.git"
+  },
+  "author": "Thiago Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiamsantos/ud989-retain/issues"
+  },
+  "homepage": "https://github.com/thiamsantos/ud989-retain#readme"
+}
