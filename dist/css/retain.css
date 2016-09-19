@@ -16,7 +16,7 @@
     margin:0;
     padding: 0;
 }
-.note {
+.note-wrapper {
     display: inline-block;
     width: 250px;
     margin-right: 20px;
@@ -25,9 +25,12 @@
     list-style-type: none;
     background-color: #cde;
 }
-
-.note-date {
-    font-size:0.7em;
-    margin-bottom: 10px;
-    display: block;
+[data-color=blue] {
+  background-color: blue;
+}
+[data-color=red] {
+  background-color: red;
+}
+[data-color=yellow] {
+  background-color: yellow;
 }
