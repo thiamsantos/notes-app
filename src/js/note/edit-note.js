@@ -1,6 +1,7 @@
 import {getId, modifyNote} from './manage-note'
 import saveNotes from './save-notes'
 import getAllNotes from './get-all-notes'
+import {sliceNoteContent} from './slice-note'
 
 export default function editNote() {
   const id = getId(this.parentNode)
@@ -13,7 +14,9 @@ export default function editNote() {
 
   const modifiedNotes = allNotes.map(mapNotes)
 
-  this.textContent = newContent
+  if (this.textContent !== newContent) {
+    this.textContent = sliceNoteContent(newContent)
+  }
 
   saveNotes(modifiedNotes)
 }

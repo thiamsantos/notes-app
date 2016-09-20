@@ -50,43 +50,56 @@
 
 	var _render2 = _interopRequireDefault(_render);
 
-	var _getAllNotes = __webpack_require__(18);
+	var _getAllNotes = __webpack_require__(2);
 
 	var _getAllNotes2 = _interopRequireDefault(_getAllNotes);
 
 	var _utils = __webpack_require__(3);
 
-	var _createNote = __webpack_require__(19);
+	var _createNote = __webpack_require__(4);
 
 	var _createNote2 = _interopRequireDefault(_createNote);
 
-	var _createNode = __webpack_require__(13);
+	var _createNode = __webpack_require__(5);
 
 	var _createNode2 = _interopRequireDefault(_createNode);
 
-	var _saveNotes = __webpack_require__(17);
+	var _saveNotes = __webpack_require__(8);
 
 	var _saveNotes2 = _interopRequireDefault(_saveNotes);
+
+	var _sliceNote = __webpack_require__(10);
+
+	var _sliceNote2 = _interopRequireDefault(_sliceNote);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var $ = document.getElementById.bind(document);
 
 	var notesListNode = $('notes');
-	var noteFormNode = $('new-note-form');
-	var noteContentNode = $('new-note-content');
+	var noteSubmitNode = $('js-submit-note');
+	var noteTitleNode = $('js-form-title');
+	var noteContentNode = $('js-form-content');
+	var newNoteButtonNode = $('js-new-note');
+	var formSection = $('js-form-section');
 
 	(0, _utils.initNotesStorage)();
 
 	(0, _getAllNotes2.default)().forEach(function (note) {
-	  (0, _render2.default)(notesListNode, (0, _createNode2.default)(note));
+	  (0, _render2.default)(notesListNode, (0, _createNode2.default)((0, _sliceNote2.default)(note)));
 	});
 
-	noteFormNode.addEventListener('submit', function (e) {
-	  e.preventDefault();
-	  var newNote = (0, _createNote2.default)(noteContentNode.value);
-	  (0, _saveNotes2.default)((0, _getAllNotes2.default)().concat(newNote));
-	  (0, _render2.default)(notesListNode, (0, _createNode2.default)(newNote));
+	newNoteButtonNode.addEventListener('click', function () {
+	  formSection.classList.add('show');
+	});
+
+	noteSubmitNode.addEventListener('click', function () {
+	  var newNote = (0, _createNote2.default)(noteTitleNode.value, noteContentNode.value);
+	  (0, _saveNotes2.default)([newNote].concat((0, _getAllNotes2.default)()));
+	  (0, _render.renderBefore)(notesListNode, (0, _createNode2.default)((0, _sliceNote2.default)(newNote)));
+	  noteTitleNode.value = '';
+	  noteContentNode.value = '';
+	  formSection.classList.remove('show');
 	});
 
 /***/ },
@@ -98,13 +111,29 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var renderBefore = exports.renderBefore = function renderBefore(referenceNode, newNode) {
+	  referenceNode.insertBefore(newNode, referenceNode.firstChild);
+	};
 
 	exports.default = function (node, note) {
 	  node.appendChild(note);
 	};
 
 /***/ },
-/* 2 */,
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  return JSON.parse(localStorage.notes);
+	};
+
+/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
@@ -120,16 +149,25 @@
 	};
 
 /***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (title, content) {
+	  return {
+	    title: title,
+	    content: content,
+	    id: Date.now()
+	  };
+	};
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -138,11 +176,11 @@
 	  value: true
 	});
 
-	var _editNote = __webpack_require__(14);
+	var _editNote = __webpack_require__(6);
 
 	var _editNote2 = _interopRequireDefault(_editNote);
 
-	var _removeNote = __webpack_require__(15);
+	var _removeNote = __webpack_require__(9);
 
 	var _removeNote2 = _interopRequireDefault(_removeNote);
 
@@ -150,21 +188,31 @@
 
 	var createNode = document.createElement.bind(document);
 
-	var createNoteNode = function createNoteNode(content) {
-	  var noteNode = createNode('p');
-	  noteNode.classList.add('note');
-	  noteNode.textContent = content;
-	  noteNode.addEventListener('click', _editNote2.default);
+	var createContentNode = function createContentNode(content) {
+	  var contentNode = createNode('p');
+	  contentNode.classList.add('note-content');
+	  contentNode.textContent = content;
 
-	  return noteNode;
+	  return contentNode;
+	};
+
+	var removeIcon = function removeIcon() {
+	  return '<svg class="icon">\n    <use xlink:href="src/img/icons.svg#remove"></use>\n  </svg>';
+	};
+
+	var createTitleNode = function createTitleNode(title) {
+	  var titleNode = createNode('h2');
+	  titleNode.classList.add('note-title');
+	  titleNode.textContent = title;
+	  return titleNode;
 	};
 
 	var createButtonNode = function createButtonNode(action) {
 	  var buttonNode = createNode('button');
 	  buttonNode.classList.add('note-' + action);
-	  buttonNode.textContent = action;
 
 	  if (action === 'remove') {
+	    buttonNode.innerHTML = removeIcon();
 	    buttonNode.addEventListener('click', _removeNote2.default);
 	    return buttonNode;
 	  }
@@ -172,19 +220,29 @@
 	  return buttonNode;
 	};
 
+	var createNoteNode = function createNoteNode(title, content) {
+	  var noteNode = createNode('header');
+	  noteNode.classList.add('note');
+	  noteNode.appendChild(createTitleNode(title));
+	  noteNode.appendChild(createContentNode(content));
+	  // noteNode.addEventListener('click', editNote)
+
+	  return noteNode;
+	};
+
 	exports.default = function (note) {
 	  var noteWrapper = createNode('li');
 	  noteWrapper.classList.add('note-wrapper');
 	  noteWrapper.id = note.id;
 
-	  noteWrapper.appendChild(createNoteNode(note.content));
+	  noteWrapper.appendChild(createNoteNode(note.title, note.content));
 	  noteWrapper.appendChild(createButtonNode('remove'));
 
 	  return noteWrapper;
 	};
 
 /***/ },
-/* 14 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -194,15 +252,17 @@
 	});
 	exports.default = editNote;
 
-	var _manageNote = __webpack_require__(16);
+	var _manageNote = __webpack_require__(7);
 
-	var _saveNotes = __webpack_require__(17);
+	var _saveNotes = __webpack_require__(8);
 
 	var _saveNotes2 = _interopRequireDefault(_saveNotes);
 
-	var _getAllNotes = __webpack_require__(18);
+	var _getAllNotes = __webpack_require__(2);
 
 	var _getAllNotes2 = _interopRequireDefault(_getAllNotes);
+
+	var _sliceNote = __webpack_require__(10);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -219,47 +279,15 @@
 
 	  var modifiedNotes = allNotes.map(mapNotes);
 
-	  this.textContent = newContent;
+	  if (this.textContent !== newContent) {
+	    this.textContent = (0, _sliceNote.sliceNoteContent)(newContent);
+	  }
 
 	  (0, _saveNotes2.default)(modifiedNotes);
 	}
 
 /***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = removeNote;
-
-	var _manageNote = __webpack_require__(16);
-
-	var _saveNotes = __webpack_require__(17);
-
-	var _saveNotes2 = _interopRequireDefault(_saveNotes);
-
-	var _getAllNotes = __webpack_require__(18);
-
-	var _getAllNotes2 = _interopRequireDefault(_getAllNotes);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function removeNote() {
-	  var parentNode = this.parentNode;
-	  var id = (0, _manageNote.getId)(parentNode);
-	  var notes = (0, _getAllNotes2.default)().filter(function (note) {
-	    return note.id !== id;
-	  });
-
-	  (0, _saveNotes2.default)(notes);
-	  parentNode.remove();
-	}
-
-/***/ },
-/* 16 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -282,7 +310,7 @@
 	};
 
 /***/ },
-/* 17 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -296,21 +324,41 @@
 	};
 
 /***/ },
-/* 18 */
-/***/ function(module, exports) {
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = removeNote;
 
-	exports.default = function () {
-	  return JSON.parse(localStorage.notes);
-	};
+	var _manageNote = __webpack_require__(7);
+
+	var _saveNotes = __webpack_require__(8);
+
+	var _saveNotes2 = _interopRequireDefault(_saveNotes);
+
+	var _getAllNotes = __webpack_require__(2);
+
+	var _getAllNotes2 = _interopRequireDefault(_getAllNotes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function removeNote() {
+	  var parentNode = this.parentNode;
+	  var id = (0, _manageNote.getId)(parentNode);
+	  var notes = (0, _getAllNotes2.default)().filter(function (note) {
+	    return note.id !== id;
+	  });
+
+	  (0, _saveNotes2.default)(notes);
+	  parentNode.remove();
+	}
 
 /***/ },
-/* 19 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -318,11 +366,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	var sliceNoteContent = exports.sliceNoteContent = function sliceNoteContent(content) {
+	  return content.slice(0, 42) + "...";
+	};
 
-	exports.default = function (content) {
+	exports.default = function (note) {
 	  return {
-	    content: content,
-	    id: Date.now()
+	    title: note.title,
+	    content: sliceNoteContent(note.content),
+	    id: note.id
 	  };
 	};
 

@@ -3,13 +3,33 @@
   <head>
     <meta charset="UTF-8">
     <title>Udacity Retain</title>
-    <link rel="stylesheet" href="dist/css/retain.css">
+    <link rel="stylesheet" href="dist/css/main.css">
   </head>
   <body>
-    <form id="new-note-form" class="new-note-form">
-      <input id="new-note-content" class="new-note-content">
-    </form>
+    <header class="header navbar">
+      <h1 class="title">My notes</h1>
+      <button class="add-note" id="js-new-note">+</button>
+    </header>
     <ul id="notes" class="notes"></ul>
+
+    <section class="edit" id="js-form-section">
+      <header class="navbar edit-header">
+        <button class="cancel-edit">
+          <svg class="icon">
+            <use xlink:href="src/img/icons.svg#back"></use>
+          </svg>
+        </button>
+        <form class="title-form">
+          <input type="text" class="edit-title" id="js-form-title" maxlength="40">
+        </form>
+        <button class="save-note" id="js-submit-note">
+          <svg class="icon">
+            <use xlink:href="src/img/icons.svg#save"></use>
+          </svg>
+        </button>
+      </header>
+      <textarea class="edit-note" id="js-form-content"></textarea>
+    </section>
 
     <script src="dist/js/main.js" async></script>
   </body>

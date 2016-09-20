@@ -27,7 +27,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:js": "xo src/js/**/*.js",
-    "build:js": "webpack --watch"
+    "lint:styl": "stylint ./src/styl/ -c .stylintrc",
+    "build:js": "webpack --watch",
+    "build:css": "stylus -w -c -u autoprefixer-stylus src/styl/main.styl -o dist/css"
   },
   "repository": {
     "type": "git",

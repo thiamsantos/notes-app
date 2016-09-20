@@ -1,0 +1,155 @@
+$shadow-key-umbra-opacity = .2
+$shadow-key-penumbra-opacity = .14
+$shadow-ambient-shadow-opacity = .12
+
+*
+  border 0
+  margin 0
+  outline 0
+  padding 0
+
+  &
+  &:after
+  &:before
+    box-sizing border-box
+
+html
+  font-size 62.5%
+
+  @media (min-width: 600px)
+    font-size 65.625%
+
+  @media (min-width: 900px)
+    font-size 68.75%
+
+body
+  background-color #fafafa
+  color rgba(0,0,0,.87)
+  font-family 'Roboto',sans-serif
+  font-size 1.6rem
+  line-height 1.2
+
+.header
+  bottom 80%
+  display flex
+  flex-direction column
+  justify-content flex-end
+  left 0
+  padding 2rem
+  position fixed
+  right 0
+  top 0
+
+.navbar
+  background-color #009284
+  box-shadow 0 2px 2px 0 rgba(0,0,0,$shadow-key-penumbra-opacity),
+    0 3px 1px -2px rgba(0,0,0,$shadow-key-umbra-opacity),
+    0 1px 5px 0 rgba(0,0,0,$shadow-ambient-shadow-opacity)
+
+.new-note-content
+  background-color #ccc
+  display block
+  width 100%
+
+.notes
+  bottom 0
+  left 0
+  overflow-y scroll
+  padding-top 2rem
+  position fixed
+  right 0
+  top 20%
+  z-index -5
+
+.note-wrapper
+  align-items center
+  border-bottom #d9dbdb .1rem solid
+  display flex
+  flex-flow row wrap
+  justify-content space-between
+  list-style-type none
+  padding 2rem
+  width 100%
+
+button
+  appearance none
+  background none
+
+.note-remove
+  fill #8B8C95
+  flex 0 1 4rem
+
+.note
+  flex 1
+
+.note-title
+  font-size 2rem
+  line-height 1.5
+
+.icon
+  height 3rem
+  width 3rem
+
+.add-note
+  background-color #FFC107
+  border-radius 50%
+  bottom -2.5rem
+  box-shadow 0 2px 2px 0 rgba(0,0,0,$shadow-key-penumbra-opacity),
+    0 3px 1px -2px rgba(0,0,0,$shadow-key-umbra-opacity),
+    0 1px 5px 0 rgba(0,0,0,$shadow-ambient-shadow-opacity)
+  color #fff
+  font-size 4rem
+  height 5rem
+  line-height 5rem
+  position absolute
+  right 3rem
+  width 5rem
+
+.edit
+  background-color #fafafa
+  bottom 0
+  display none
+  left 0
+  position fixed
+  right 0
+  top 0
+  &.show
+    display block
+
+.edit-header
+  align-items center
+  display flex
+  flex-flow row no-wrap
+  justify-content space-between
+  padding 1.5rem
+
+.title
+  color #fff
+  font-weight 300
+
+.edit-title
+  background transparent
+  border-bottom .1rem solid #fff
+  color #fff
+  flex 1
+  font-size 1.6rem
+  margin 0 1rem
+  padding 1rem 0
+  text-align center
+  width 100%
+
+.title-form
+  display flex
+  width 100%
+
+.cancel-edit
+.save-note
+  fill #fff
+
+.edit-note
+  background transparent
+  font-family inherit
+  font-size inherit
+  height 100%
+  padding 2rem
+  width 100%
