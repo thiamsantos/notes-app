@@ -1,0 +1,10 @@
+export const $ = document.getElementById.bind(document)
+
+export const notesListNode = $('js-notes-list')
+export const noteSubmitNode = $('js-submit-note')
+export const noteCancelNode = $('js-cancel-note')
+export const noteTitleNode = $('js-form-title')
+export const noteContentNode = $('js-form-content')
+export const newNoteButtonNode = $('js-new-note')
+export const formSectionNode = $('js-form-section')
+export const titleFormNode = $('js-title-form')

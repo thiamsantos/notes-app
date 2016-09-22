@@ -1,37 +1,60 @@
-import {default as render, renderBefore} from './modules/render'
+import render from './modules/render'
 import getAllNotes from './note/get-all-notes'
 import {initNotesStorage} from './modules/utils'
-import createNote from './note/create-note'
-import createNode from './modules/create-node'
-import saveNotes from './note/save-notes'
-import sliceNote from './note/slice-note'
-
-const $ = document.getElementById.bind(document)
-
-const notesListNode = $('notes')
-const noteSubmitNode = $('js-submit-note')
-const noteTitleNode = $('js-form-title')
-const noteContentNode = $('js-form-content')
-const newNoteButtonNode = $('js-new-note')
-const formSection = $('js-form-section')
+import createNoteNode from './modules/create-note-node'
+import submitNote from './note/submit-note'
+import clearForm from './modules/clear-form'
+import {
+  formSectionNode,
+  notesListNode,
+  newNoteButtonNode,
+  noteCancelNode,
+  noteTitleNode,
+  noteContentNode,
+  noteSubmitNode,
+  titleFormNode
+} from './modules/nodes'
 
 initNotesStorage()
 
 getAllNotes()
   .forEach(note => {
-    render(notesListNode, createNode(sliceNote(note)))
+    render(notesListNode, createNoteNode(note))
   })
 
 newNoteButtonNode.addEventListener('click', () => {
-  formSection.classList.add('show')
+  formSectionNode.classList.add('show')
+  noteTitleNode.focus()
 })
 
-noteSubmitNode
-  .addEventListener('click', () => {
-    const newNote = createNote(noteTitleNode.value, noteContentNode.value)
-    saveNotes([newNote].concat(getAllNotes()))
-    renderBefore(notesListNode, createNode(sliceNote(newNote)))
-    noteTitleNode.value = ''
-    noteContentNode.value = ''
-    formSection.classList.remove('show')
+noteCancelNode.addEventListener('click', () => {
+  formSectionNode.classList.remove('show')
+  clearForm(noteTitleNode, noteContentNode)
+})
+
+// noteTitleNode.addEventListener('keydown', e => {
+//   if (e.keyCode === 'Tab') {
+//     console.log(e)
+//     noteContentNode.focus()
+//   }
+// })
+
+titleFormNode.addEventListener('submit', e => {
+  e.preventDefault()
+})
+
+noteSubmitNode.addEventListener('click', submitNote)
+
+const serviceWorkerAvailable = 'serviceWorker' in navigator
+const useHTTPS = window.location.protocol === 'https:'
+const isLocalhost = window.location.hostname === 'localhost'
+
+if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
+  navigator.serviceWorker.register('/sw.js', {
+    scope: '/notes-app/'
+  }).then(reg => {
+    console.info(reg);
+  }.catch(err => {
+    console.err(err);
   })
+}

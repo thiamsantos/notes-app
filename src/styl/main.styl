@@ -1,33 +1,5 @@
-$shadow-key-umbra-opacity = .2
-$shadow-key-penumbra-opacity = .14
-$shadow-ambient-shadow-opacity = .12
-
-*
-  border 0
-  margin 0
-  outline 0
-  padding 0
-
-  &
-  &:after
-  &:before
-    box-sizing border-box
-
-html
-  font-size 62.5%
-
-  @media (min-width: 600px)
-    font-size 65.625%
-
-  @media (min-width: 900px)
-    font-size 68.75%
-
-body
-  background-color #fafafa
-  color rgba(0,0,0,.87)
-  font-family 'Roboto',sans-serif
-  font-size 1.6rem
-  line-height 1.2
+@import './components/variables'
+@import './components/generic'
 
 .header
   bottom 80%
@@ -41,15 +13,10 @@ body
   top 0
 
 .navbar
-  background-color #009284
+  background-color $primary-color
   box-shadow 0 2px 2px 0 rgba(0,0,0,$shadow-key-penumbra-opacity),
     0 3px 1px -2px rgba(0,0,0,$shadow-key-umbra-opacity),
     0 1px 5px 0 rgba(0,0,0,$shadow-ambient-shadow-opacity)
-
-.new-note-content
-  background-color #ccc
-  display block
-  width 100%
 
 .notes
   bottom 0
@@ -63,7 +30,7 @@ body
 
 .note-wrapper
   align-items center
-  border-bottom #d9dbdb .1rem solid
+  border-bottom $divider-color .1rem solid
   display flex
   flex-flow row wrap
   justify-content space-between
@@ -71,12 +38,8 @@ body
   padding 2rem
   width 100%
 
-button
-  appearance none
-  background none
-
 .note-remove
-  fill #8B8C95
+  fill $primary-icon-color
   flex 0 1 4rem
 
 .note
@@ -91,13 +54,13 @@ button
   width 3rem
 
 .add-note
-  background-color #FFC107
+  background-color $accent-color
   border-radius 50%
   bottom -2.5rem
   box-shadow 0 2px 2px 0 rgba(0,0,0,$shadow-key-penumbra-opacity),
     0 3px 1px -2px rgba(0,0,0,$shadow-key-umbra-opacity),
     0 1px 5px 0 rgba(0,0,0,$shadow-ambient-shadow-opacity)
-  color #fff
+  color $secondary-icon-color
   font-size 4rem
   height 5rem
   line-height 5rem
@@ -106,7 +69,7 @@ button
   width 5rem
 
 .edit
-  background-color #fafafa
+  background-color $background-color
   bottom 0
   display none
   left 0
@@ -124,13 +87,13 @@ button
   padding 1.5rem
 
 .title
-  color #fff
+  color $light-text-color-primary
   font-weight 300
 
 .edit-title
   background transparent
-  border-bottom .1rem solid #fff
-  color #fff
+  border-bottom .1rem solid $baseline-input-color
+  color $light-text-color-primary
   flex 1
   font-size 1.6rem
   margin 0 1rem
@@ -144,7 +107,7 @@ button
 
 .cancel-edit
 .save-note
-  fill #fff
+  fill $secondary-icon-color
 
 .edit-note
   background transparent
@@ -153,3 +116,6 @@ button
   height 100%
   padding 2rem
   width 100%
+
+.note-content
+  color $dark-text-color-secondary

@@ -1,22 +1,15 @@
-import {getId, modifyNote} from './manage-note'
-import saveNotes from './save-notes'
+import {formSection, noteTitleNode, noteContentNode} from '../modules/nodes'
+import {getId} from './manage-note'
 import getAllNotes from './get-all-notes'
-import {sliceNoteContent} from './slice-note'
 
 export default function editNote() {
   const id = getId(this.parentNode)
-
+  formSection.setAttribute('data-edit', id)
   const allNotes = getAllNotes()
-
   const note = allNotes.filter(note => note.id === id)[0]
-  const newContent = prompt('', note.content)
-  const mapNotes = modifyNote(id, 'content', newContent)
 
-  const modifiedNotes = allNotes.map(mapNotes)
+  noteTitleNode.value = note.title
+  noteContentNode.value = note.content
 
-  if (this.textContent !== newContent) {
-    this.textContent = sliceNoteContent(newContent)
-  }
-
-  saveNotes(modifiedNotes)
+  formSection.classList.add('show')
 }

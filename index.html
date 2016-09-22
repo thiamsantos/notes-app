@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Udacity Retain</title>
-    <link rel="stylesheet" href="dist/css/main.css">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>My notes</title>
+    <meta name="description" content="Write and organize your ideas with this simple app">
+
+    <link href="dist/css/main.css" rel="stylesheet">
+    <link href="manifest.json" rel="manifest">
+
+    <meta name="theme-color" content="#00796B">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Notes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="dist/img/icon-60.png">
+
+    <link href="dist/img/icon-16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="dist/img/icon-32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="dist/img/icon-48.png" rel="icon" sizes="48x48" type="image/png">
+    <link href="dist/img/icon-96.png" rel="icon" sizes="96x96" type="image/png">
+    <link href="dist/img/icon-144.png" rel="icon" sizes="144/144" type="image/png">
+    <link href="dist/img/icon-192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="dist/img/icon-256.png" rel="icon" sizes="256x256" type="image/png">
+    <link href="dist/img/icon-512.png" rel="icon" sizes="512x512" type="image/png">
+
   </head>
   <body>
     <header class="header navbar">
       <h1 class="title">My notes</h1>
       <button class="add-note" id="js-new-note">+</button>
     </header>
-    <ul id="notes" class="notes"></ul>
+    <ul id="js-notes-list" class="notes"></ul>
 
     <section class="edit" id="js-form-section">
       <header class="navbar edit-header">
-        <button class="cancel-edit">
+        <button class="cancel-edit" id="js-cancel-note">
           <svg class="icon">
             <use xlink:href="src/img/icons.svg#back"></use>
           </svg>
         </button>
-        <form class="title-form">
+        <form class="title-form" id="js-title-form">
           <input type="text" class="edit-title" id="js-form-title" maxlength="40">
         </form>
         <button class="save-note" id="js-submit-note">
