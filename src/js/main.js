@@ -55,6 +55,6 @@ if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
   }).then(reg => {
     console.info(reg);
   }).catch(err => {
-    console.err(err);
+    console.info(err);
   })
 }
