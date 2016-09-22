@@ -1,10 +1,10 @@
 var VERSION = '0.0.1'
 
 var files = [
-  '/',
-  '/dist/css/main.css',
-  '/dist/js/main.js',
-  '/dist/img/icons.svg'
+  './',
+  './dist/css/main.css',
+  './dist/js/main.js',
+  './dist/img/icons.svg'
 ]
 
 self.addEventListener('install', function(e) {
