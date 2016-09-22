@@ -11,7 +11,7 @@ const createContentNode = content =>
 
 const removeIcon = () =>
   `<svg class="icon">
-    <use xlink:href="src/img/icons.svg#remove"></use>
+    <use xlink:href="dist/img/icons.svg#remove"></use>
   </svg>`
 
 const createTitleNode = title =>
