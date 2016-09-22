@@ -101,13 +101,19 @@
 
 	_nodes.noteSubmitNode.addEventListener('click', _submitNote2.default);
 
-	navigator.serviceWorker.register('/sw.js', {
-	  scope: '/trained-to-thrill/'
-	}).then(function (reg) {
-	  console.info(reg);
-	}, function (err) {
-	  console.err(err);
-	});
+	var serviceWorkerAvailable = 'serviceWorker' in navigator;
+	var useHTTPS = window.location.protocol === 'https:';
+	var isLocalhost = window.location.hostname === 'localhost';
+
+	if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
+	  navigator.serviceWorker.register('/sw.js', {
+	    scope: '/notes-app/'
+	  }).then(function (reg) {
+	    console.info(reg);
+	  }).catch(function (err) {
+	    console.err(err);
+	  });
+	}
 
 /***/ },
 /* 1 */

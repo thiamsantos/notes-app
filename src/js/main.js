@@ -54,7 +54,7 @@ if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
     scope: '/notes-app/'
   }).then(reg => {
     console.info(reg);
-  }.catch(err => {
+  }).catch(err => {
     console.err(err);
   })
 }
