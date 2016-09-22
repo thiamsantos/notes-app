@@ -50,7 +50,7 @@ const useHTTPS = window.location.protocol === 'https:'
 const isLocalhost = window.location.hostname === 'localhost'
 
 if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
-  navigator.serviceWorker.register('/sw.js', {
+  navigator.serviceWorker.register('sw.js', {
     scope: '/notes-app/'
   }).then(reg => {
     console.info(reg);
