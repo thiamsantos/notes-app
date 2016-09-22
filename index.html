@@ -33,25 +33,25 @@
       <h1 class="title">My notes</h1>
       <button class="add-note" id="js-new-note">+</button>
     </header>
-    <ul id="js-notes-list" class="notes"></ul>
+    <ul id="js-notes-list" class="notes-list"></ul>
 
-    <section class="edit" id="js-form-section">
-      <header class="navbar edit-header">
-        <button class="cancel-edit" id="js-cancel-note">
-          <svg class="icon">
+    <section class="form" id="js-form-section">
+      <header class="navbar form__header">
+        <button id="js-cancel-note">
+          <svg class="icon icon--secondary">
             <use xlink:href="dist/img/icons.svg#back"></use>
           </svg>
         </button>
-        <form class="title-form" id="js-title-form">
-          <input type="text" class="edit-title" id="js-form-title" maxlength="40">
+        <form class="form__title-field-wrapper" id="js-title-form">
+          <input type="text" class="form__field form__field--title" id="js-form-title" maxlength="40">
         </form>
-        <button class="save-note" id="js-submit-note">
-          <svg class="icon">
+        <button id="js-submit-note">
+          <svg class="icon icon--secondary">
             <use xlink:href="dist/img/icons.svg#save"></use>
           </svg>
         </button>
       </header>
-      <textarea class="edit-note" id="js-form-content"></textarea>
+      <textarea class="form__field form__field--content" id="js-form-content"></textarea>
     </section>
 
     <script src="dist/js/main.js" async></script>

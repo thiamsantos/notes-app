@@ -22,6 +22,8 @@
     "semicolon": false,
     "globals": [
       "document",
+      "window",
+      "navigator",
       "localStorage"
     ]
   },

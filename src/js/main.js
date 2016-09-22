@@ -49,12 +49,19 @@ const serviceWorkerAvailable = 'serviceWorker' in navigator
 const useHTTPS = window.location.protocol === 'https:'
 const isLocalhost = window.location.hostname === 'localhost'
 
+const getServiceWorkerFile = () => {
+  if (isLocalhost) {
+    return '/sw.js'
+  }
+  return '/notes-app/sw.js'
+}
+
 if (serviceWorkerAvailable && (useHTTPS || isLocalhost)) {
-  navigator.serviceWorker.register('/notes-app/sw.js', {
+  navigator.serviceWorker.register(getServiceWorkerFile(), {
     scope: '/notes-app/'
   }).then(reg => {
-    console.info(reg);
+    console.info(reg)
   }).catch(err => {
-    console.info(err);
+    console.info(err)
   })
 }
