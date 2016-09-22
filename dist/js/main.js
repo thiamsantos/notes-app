@@ -60,15 +60,15 @@
 
 	var _createNoteNode2 = _interopRequireDefault(_createNoteNode);
 
-	var _submitNote = __webpack_require__(11);
+	var _submitNote = __webpack_require__(12);
 
 	var _submitNote2 = _interopRequireDefault(_submitNote);
 
-	var _clearForm = __webpack_require__(12);
+	var _clearForm = __webpack_require__(13);
 
 	var _clearForm2 = _interopRequireDefault(_clearForm);
 
-	var _nodes = __webpack_require__(14);
+	var _nodes = __webpack_require__(6);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -148,16 +148,24 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.initNotesStorage = undefined;
+
+	var _createNote = __webpack_require__(14);
+
+	var _createNote2 = _interopRequireDefault(_createNote);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var initNotesStorage = exports.initNotesStorage = function initNotesStorage() {
 	  if (!localStorage.notes) {
-	    localStorage.notes = JSON.stringify([]);
+	    localStorage.notes = JSON.stringify([(0, _createNote2.default)('First note', 'Click to edit the note or create a new one')]);
 	  }
 	};
 
@@ -175,15 +183,15 @@
 
 	var _editNote2 = _interopRequireDefault(_editNote);
 
-	var _removeNote = __webpack_require__(9);
+	var _removeNote = __webpack_require__(8);
 
 	var _removeNote2 = _interopRequireDefault(_removeNote);
 
-	var _sliceNote = __webpack_require__(8);
+	var _sliceNote = __webpack_require__(10);
 
 	var _sliceNote2 = _interopRequireDefault(_sliceNote);
 
-	var _createNode = __webpack_require__(10);
+	var _createNode = __webpack_require__(11);
 
 	var _createNode2 = _interopRequireDefault(_createNode);
 
@@ -224,9 +232,9 @@
 	});
 	exports.default = editNote;
 
-	var _nodes = __webpack_require__(14);
+	var _nodes = __webpack_require__(6);
 
-	var _manageNote = __webpack_require__(6);
+	var _manageNote = __webpack_require__(7);
 
 	var _getAllNotes = __webpack_require__(2);
 
@@ -236,7 +244,7 @@
 
 	function editNote() {
 	  var id = (0, _manageNote.getId)(this.parentNode);
-	  _nodes.formSection.setAttribute('data-edit', id);
+	  _nodes.formSectionNode.setAttribute('data-edit', id);
 	  var allNotes = (0, _getAllNotes2.default)();
 	  var note = allNotes.filter(function (note) {
 	    return note.id === id;
@@ -245,11 +253,31 @@
 	  _nodes.noteTitleNode.value = note.title;
 	  _nodes.noteContentNode.value = note.content;
 
-	  _nodes.formSection.classList.add('show');
+	  _nodes.formSectionNode.classList.add('show');
 	}
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var $ = exports.$ = document.getElementById.bind(document);
+
+	var notesListNode = exports.notesListNode = $('js-notes-list');
+	var noteSubmitNode = exports.noteSubmitNode = $('js-submit-note');
+	var noteCancelNode = exports.noteCancelNode = $('js-cancel-note');
+	var noteTitleNode = exports.noteTitleNode = $('js-form-title');
+	var noteContentNode = exports.noteContentNode = $('js-form-content');
+	var newNoteButtonNode = exports.newNoteButtonNode = $('js-new-note');
+	var formSectionNode = exports.formSectionNode = $('js-form-section');
+	var titleFormNode = exports.titleFormNode = $('js-title-form');
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -272,38 +300,7 @@
 	};
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (notes) {
-	  localStorage.notes = JSON.stringify(notes);
-	};
-
-/***/ },
 /* 8 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (content) {
-	  if (content.length >= 43) {
-	    return content.slice(0, 42) + "...";
-	  }
-	  return content;
-	};
-
-/***/ },
-/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -313,9 +310,9 @@
 	});
 	exports.default = removeNote;
 
-	var _manageNote = __webpack_require__(6);
+	var _manageNote = __webpack_require__(7);
 
-	var _saveNotes = __webpack_require__(7);
+	var _saveNotes = __webpack_require__(9);
 
 	var _saveNotes2 = _interopRequireDefault(_saveNotes);
 
@@ -337,7 +334,38 @@
 	}
 
 /***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (notes) {
+	  localStorage.notes = JSON.stringify(notes);
+	};
+
+/***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (content) {
+	  if (content.length >= 43) {
+	    return content.slice(0, 42) + "...";
+	  }
+	  return content;
+	};
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -408,7 +436,7 @@
 	};
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -419,7 +447,7 @@
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _clearForm = __webpack_require__(12);
+	var _clearForm = __webpack_require__(13);
 
 	var _clearForm2 = _interopRequireDefault(_clearForm);
 
@@ -429,9 +457,9 @@
 
 	var _createNoteNode2 = _interopRequireDefault(_createNoteNode);
 
-	var _nodes = __webpack_require__(14);
+	var _nodes = __webpack_require__(6);
 
-	var _createNote = __webpack_require__(13);
+	var _createNote = __webpack_require__(14);
 
 	var _createNote2 = _interopRequireDefault(_createNote);
 
@@ -439,7 +467,7 @@
 
 	var _getAllNotes2 = _interopRequireDefault(_getAllNotes);
 
-	var _saveNotes = __webpack_require__(7);
+	var _saveNotes = __webpack_require__(9);
 
 	var _saveNotes2 = _interopRequireDefault(_saveNotes);
 
@@ -487,7 +515,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -507,7 +535,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -523,26 +551,6 @@
 	    id: Date.now()
 	  };
 	};
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var $ = exports.$ = document.getElementById.bind(document);
-
-	var notesListNode = exports.notesListNode = $('js-notes-list');
-	var noteSubmitNode = exports.noteSubmitNode = $('js-submit-note');
-	var noteCancelNode = exports.noteCancelNode = $('js-cancel-note');
-	var noteTitleNode = exports.noteTitleNode = $('js-form-title');
-	var noteContentNode = exports.noteContentNode = $('js-form-content');
-	var newNoteButtonNode = exports.newNoteButtonNode = $('js-new-note');
-	var formSectionNode = exports.formSectionNode = $('js-form-section');
-	var titleFormNode = exports.titleFormNode = $('js-title-form');
 
 /***/ }
 /******/ ]);
