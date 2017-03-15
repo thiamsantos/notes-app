@@ -2,4 +2,6 @@
 
 # Notes
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/thiamsantos/notes-app.svg)](https://greenkeeper.io/)
+
 A offline-first note app.
